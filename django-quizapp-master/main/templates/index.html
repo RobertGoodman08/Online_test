@@ -1,0 +1,127 @@
+{% extends 'basewww.html' %}
+{% load static %}
+
+
+
+{% block content %}
+  <main class="site-main">
+
+
+    <section class="hero-banner">
+      <div class="container">
+        <div class="row no-gutters align-items-center pt-60px">
+          <div class="col-5 d-none d-sm-block">
+            <div class="hero-banner__img">
+              <img class="img-fluid" src="{% static 'img/home/hero-banner.gif' %}" alt="" style="height: 530px; width: 500px;">
+            </div>
+          </div>
+          <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
+            <div class="hero-banner__content">
+              <h4>тесты онлайн</h4>
+              <h1>Пройти тесты онлайн:</h1>
+              <p>Специально подобранные психологические тесты раскроют ваш характер и проверят уровень депрессии. Образовательные расширят эрудицию, а онлайн тесты на IQ и логику потренируют мышление.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-margin calc-60px">
+      <div class="container">
+        <div class="section-intro pb-60px">
+          <h2>ТЕСТЫ <span class="section-intro__style">без регистрации</span></h2>
+        </div>
+          <div class="row">
+              <div class="card">
+                  <div class="card-body">
+                    <a href="quiz/">тесты без регистрации</a>
+                  </div>
+             </div>
+          </div>
+      </div>
+    </section>
+
+
+
+
+    <section class="offer" id="parallax-1" data-anchor-target="#parallax-1" data-300-top="background-position: 20px 30px" data-top-bottom="background-position: 0 20px">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-5">
+            <div class="offer__content text-center">
+                {% if request.user.is_authenticated %}
+
+                {% else %}
+                  <h3>Пройди регистрацию</h3>
+                  <h4>на сайте</h4>
+                  <p>чтобы получить доступ к новым тестам</p>
+                  <a class="button button--active mt-3 mt-xl-4" href="{% url 'register' %}">регистрация</a>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <br>
+
+
+    <section class="blog">
+      <div class="container">
+        <div class="section-intro pb-60px">
+          <h2>Тесты <span class="section-intro__style">онлайн</span></h2>
+        </div>
+
+        <div class="row">
+            {% if request.user.is_authenticated %}
+
+
+              {% for oks in quiz %}
+                <div class="col-sm-6" style="margin-top: 25px">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ oks.name }}</h5>
+                        <p class="card-text">тема:{{ oks.topic }}</p>
+                        <p class="card-text">количество вопросов:{{ oks.number_of_questions }}</p>
+                        <p class="card-text">требуемый балл в:{{ oks.required_score_to_pass }}</p>
+                        <p class="card-text">трудность:{{ oks.difficluty }}</p>
+                        <a href="{% url 'view' oks.id %}" class="btn btn-primary ">Начать тест</a>
+                      </div>
+                    </div>
+                  </div>
+              {% endfor %}
+            {% else %}
+                <h1>Пройди регистрацию на сайте чтобы получить доступ к  тестам</h1>
+                {% for oks in quiz %}
+                <div class="col-sm-6" style="margin-top: 25px">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ oks.name }}</h5>
+                        <p class="card-text">тема:{{ oks.topic }}</p>
+                        <p class="card-text">количество вопросов:{{ oks.number_of_questions }}</p>
+                        <p class="card-text">требуемый балл в:{{ oks.required_score_to_pass }}</p>
+                        <p class="card-text">трудность:{{ oks.difficluty }}</p>
+                        <a href="{% url 'view' oks.id %}" class="btn btn-primary  disabled">Начать тест</a>
+                      </div>
+                    </div>
+                  </div>
+              {% endfor %}
+
+            {% endif %}
+        </div>
+      </div>
+    </section>
+
+
+
+  </main>
+
+
+    <br>
+    <br>
+    <br>
+
+{% endblock %}
+
+

@@ -107,6 +107,6 @@ const sendData = () => {
 quizForm.addEventListener('submit', e=>{
     e.preventDefault()
     sendData()
-    $('.list-group').html("");
-    $('.wegta').html("");
+//     $('.list-group').html("");
+//     $('.wegta').html("");
 })
